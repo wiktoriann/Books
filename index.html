@@ -1,0 +1,151 @@
+<html>
+<head>
+    <meta charset = "utf-8">
+    <title>Wyszukiwanie</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+        
+        body
+        {
+            font-family: 'Lato', sans-serif;
+            padding: 0;
+            margin: 0;
+            background-color: #e6e6e6;
+            
+        }
+        
+        
+        #data
+        {
+            text-align: center;
+            background-color: #262626;
+            padding-top: 1%;
+            padding-bottom: 1%;
+            border-bottom: 1px solid #b3b3b3;
+            color:#e6e6e6;
+        }
+        
+        input
+        {
+            font-family: 'Lato', sans-serif;
+            border:1px solid #b3b3b3;
+            height: 30px;
+            color: #262626;
+            background-color: #e6e6e6;
+        }
+        
+        
+        .cov
+        {
+            min-height: auto;
+            width: auto;
+            float:left;
+            margin-top:3%;
+            margin-left:8%;
+            margin-bottom: 2%;
+        }
+        
+        .desc
+        {
+            min-height: auto;
+            width: 39%;
+            float:left;
+            margin-top: 3%;
+            margin-left: 20%;
+            padding:1%;
+            margin-bottom: 2%;
+            
+        }
+        
+        
+        .header
+        {
+            margin-top: 10%;
+            height: auto;
+            padding:1%;
+            font-weight: bold;
+            clear: both;
+            text-align: center;
+            border: 2px solid black;
+            width: 60%;
+            margin:auto;
+            border-radius: 10px;
+            color:#e6e6e6;
+            background-color: #262626;
+        }
+        
+        
+        
+     </style>
+    
+    
+     <script>
+     
+        
+      function getdata()
+         {
+             
+          
+          
+            var field = $('#inp').val();
+            
+            if(field == '')
+                {
+                    alert('What are you looking for? Title field is empty!');
+                }
+            else
+                {
+                    var link = '';
+                    var covr = '';
+                    var desc = '';
+                    var ttl = '';
+                    
+                    
+                    $.get('https://www.googleapis.com/books/v1/volumes?q= intitle:' + field, function(response)
+                         {
+                           for(i=0; i<response.items.length; i++)
+                               {
+                                   
+                                   ttl = $('<div class="content"><div class="header">' + response.items[i].volumeInfo.title + '</div>');
+                                   desc = $('<div class="desc">' + response.items[i].volumeInfo.description + '</div>');
+                                   link = response.items[i].volumeInfo.imageLinks.thumbnail;
+                                   covr = $('<div class="cov"><img src="' + link + '"</div></div>');
+                                   
+                    
+                                      
+                                   
+                                           
+                                                
+                                                ttl.appendTo('#serc_result');
+                                                desc.appendTo('#serc_result');
+                                                covr.appendTo('#serc_result');
+                                            
+                                   
+                                        
+                                   
+                               }
+                         });
+                    
+                    
+                }
+            
+            
+        }
+      
+    </script>
+
+</head>
+<body>
+    <div id="container">
+    <form id="data">
+        Czego szukasz?&nbsp;
+        <input type="search" id="inp">
+        <input type="button" id="sr" value="Szukaj" onclick = 'getdata();' >
+    </form>
+        <div id="serc_result"></div>
+    </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+</body>
+</html>
