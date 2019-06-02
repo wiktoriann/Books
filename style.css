@@ -28,6 +28,12 @@
             color: #262626;
             background-color: #e6e6e6;
         }
+
+          #sr:hover
+        {
+            background-color: #d5d5d5;
+            cursor: pointer;
+        }
         
         
         .cov
